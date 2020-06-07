@@ -16,6 +16,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import json
 # Create your views here.
 
+#  customer sign in 
 def sign_in(request):
     if request.method=="POST":
         username = request.POST.get('username')
@@ -147,7 +148,7 @@ def cart(request):
 
     return render(request,"customer/cart.html",{"items":items,"order":order})
 
-# checkout page
+# checkout page view
 @login_required(login_url="sign_in")
 def checkout(request):
     customer = request.user.customer
