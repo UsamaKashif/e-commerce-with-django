@@ -1,0 +1,133 @@
+{% extends 'customer/base.html' %}
+
+
+{% block content %}
+    <div class="mt-4">
+      <br>
+    </div>
+      <!--Main layout-->
+      <main class="mt-5">
+          {% if messages %}
+          <ul class="messages d-flex justify-content-center mb-2 mt-2">
+              {% for message in messages %}
+              <div class="alert alert-{{message.tags}}" role="alert">
+              <h5 >{{ message }}</h5>
+              </div>
+              {% endfor %}
+          </ul>
+          {% endif %}
+        <div class="container mt-5">
+    
+          <!--Navbar-->
+          <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
+    
+            <!-- Navbar brand -->
+            <span class="navbar-brand">Categories:</span>
+    
+            <!-- Collapse button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+              aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse" id="basicExampleNav">
+    
+              <!-- Links -->
+              <ul class="navbar-nav mr-auto">
+                <li {% if page == "home" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                  <a class="nav-link" href="{% url 'home_page' %}">All
+                    {% if page == "home" %}<span class="sr-only">(current)</span>{% endif %}
+                  </a>
+                </li>
+                <li {% if page == "shirts" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                  <a class="nav-link"  href="{% url 'Shirt' %}">Shirts</a>
+                  {% if page == "shirts" %}<span class="sr-only">(current)</span>{% endif %}
+                </li>
+                <li {% if page == "sports-wear" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                  <a class="nav-link"  href="{% url 'Sport Wear' %}">Sport wears</a>
+                  {% if page == "sports-wear" %}<span class="sr-only">(current)</span>{% endif %}
+                </li>
+                <li {% if page == "outwear" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                  <a class="nav-link"  href="{% url 'Outwear' %}">Outwears</a>
+                  {% if page == "outwear" %}<span class="sr-only">(current)</span>{% endif %}
+                </li>
+    
+              </ul>
+              <!-- Links -->
+            </div>
+            <!-- Collapsible content -->
+    
+          </nav>
+          <!--/.Navbar-->
+          {% if page == "shirts" %}
+            <h1 class="p-2 text-center mb-3"><b>SHIRTS</b></h1>
+          {% elif page == "sports-wear" %}
+            <h1 class="p-2 text-center mb-3"><b>SPORTS WEAR</b></h1>
+          {% elif page == "outwear" %}
+          <h1 class="p-2 text-center mb-3"><b>OUTWEAR</b></h1>
+          {% endif %}
+          <!--Section: Products v.3-->
+          <section class="text-center mb-4">
+            
+            <!--Grid row-->
+            <div class="row wow fadeIn">
+                {% for i in items %}
+              <!--Grid column-->
+              <div class="col-lg-3 col-md-6 mb-4">
+                <!--Card-->
+                <div class="card">
+    
+                  <!--Card image-->
+                  <div class="view overlay">
+                    <img src="{{i.image.url}}" class="card-img-top"
+                      alt="">
+                    <a href="{% url 'product_detail' i.id %}">
+                      <div class="mask rgba-white-slight"></div>
+                    </a>
+                  </div>
+                  <!--Card image-->
+    
+                  <!--Card content-->
+                  <div class="card-body text-center">
+                    <!--Category & Title-->
+                    <a href="{% url i.get_category_display %}" class="grey-text">
+                      <h5>{{i.get_category_display}}</h5>
+                    </a>
+                    <h5>
+                      <strong>
+                        <a href="{% url 'product_detail' i.id %}" class="dark-grey-text">{{i.name}}
+                        </a>
+                      </strong>
+                    </h5>
+    
+                    <h4 class="font-weight-bold blue-text">
+                      
+                      <strong>
+                        {% if i.discount_price %}
+                        PKR {{i.discount_price}}
+                        {% else %}
+                        PKR {{i.price}}
+                        {% endif %}
+                      </strong>
+                      
+                    </h4>
+    
+                  </div>
+                  <!--Card content-->
+    
+                </div>
+                <!--Card-->
+                
+              </div>
+              <!--Grid column-->
+              {% endfor %}
+            </div>
+            <!--Grid row-->
+    
+          </section>
+          <!--Section: Products v.3-->
+    
+         {% include 'customer/pagination.html' %}
+          
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'customer/base.html' %}
+{% load static %}
+
+{% block content %}
+    <!--Main layout-->
+  <main class="mt-5 pt-4">
+        <div class="container dark-grey-text mt-5">
+    
+                <div class="container">
+                        <div class="row">
+                          <div class="col-lg-10 col-xl-9 mx-auto">
+                            <div class="card  shadow-lg card-signin flex-row my-5">
+                              <div class="card-body">
+                                <h5 class="card-title text-center">Student Register</h5>
+                                <form class="form-signin" method="POST" action="">
+                                        {% csrf_token %}
+                                  <div class="form-label-group mb-2">
+                                        {{form.username}}
+                                  </div>
+                                  <small class="text-danger">{{form.username.errors}}</small>
+                    
+                                  <div class="form-label-group mb-2">
+                                        {{form.name}}
+                                  </div>
+                                  <small class="text-danger">{{form.name.errors}}</small>
+                                  <div class="form-label-group">
+                                        {{form.email}}
+                                  </div>
+                                  <small class="text-danger">{{form.email.errors}}</small>
+                                  
+                                  <hr>
+                    
+                                  <div class="form-label-group mb-2">
+                                        {{form.password1}}
+                                  </div>
+                                  <small class="text-danger">{{form.password1.errors}}</small>
+                                  
+                                  <div class="form-label-group mb-2">
+                                        {{form.password2}}
+                                  </div>
+                                  <small class="text-danger">{{form.password2.errors}}</small>
+                                  <hr>
+                                  
+                    
+                                  <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+                                  <a class="d-block text-center mt-2 small p-3" href="{% url 'sign_in'  %}">Sign In</a>
+                                  <hr class="my-4">
+                                  <a class="btn btn-lg  btn-block text-uppercase bg-dark text-light" href="{% url 'home_page' %}" >Back To Home</a>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+    
+        </div>
+      </main>
+      <!--Main layout-->
+      <script>
+            var form_fields = document.getElementsByTagName('input')
+            form_fields[1].placeholder='Username';
+            form_fields[2].placeholder='Name';
+            form_fields[3].placeholder='Email';
+            form_fields[4].placeholder='Password';
+            form_fields[5].placeholder='Repeat Password';
+            for (var field in form_fields){	
+                form_fields[field].className += ' form-control'
+            }
+    </script>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'customer/base.html' %}
+
+
+{% block content %}
+
+<div class="container mt-5 p-3">
+    <h5 class="mt-5 bg-light p-2">Order Summary</h5>
+        <div class="table-responsive text-nowrap">
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Product Name</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Total Product Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      {% for item in items %}
+                    <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>{{item.product.name}}</td>
+                      <td>
+                            {% if item.product.discount_price %}
+                            {{item.product.discount_price}}
+                        </td>
+                            {% else %}
+                            {{item.product.price}}</td>
+                            {% endif %}
+                        
+                      <td>
+                            <a><i class="fas fa-minus mr-2 update-cart" data-action="remove" data-product="{{item.product.id}}"></i></a>
+                            {{item.quantity}}
+                            <a><i class="fas fa-plus ml-2 update-cart" data-action="add" data-product="{{item.product.id}}" ></i></a>
+                        </td>
+                      <td>
+                          {% if item.product.discount_price %}
+                          {{item.get_total_discount_item_price}}
+                          <span class="badge badge-primary ml-2 p-2">Saved PKR {{item.get_amount_saved}}</span>
+                          {% else %}
+                          {{item.get_total_item_price}}
+                          {% endif %}
+                      </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">Your cart is empty</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <a class="btn btn-primary float-right" href="{% url 'home_page' %}">Continue Shopping</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% if order.get_cart_total %}
+                    <tr>
+                        <td colspan="4"><b>Order Total</b></td>
+                        <td><b>{{order.get_cart_total}}</b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <a class="btn btn-success float-right ml-2" href="{% url 'checkout' %}">Proceed to checkout</a>
+                            <a class="btn btn-primary float-right" href="{% url 'home_page' %}">Continue Shopping</a>
+                        </td>
+                    </tr>
+                    {% endif %}
+                  </tbody>
+                </table>
+              
+              </div>
+</div>
+
+{% endblock content %}

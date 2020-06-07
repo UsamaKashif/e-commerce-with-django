@@ -1,0 +1,17 @@
+asgiref==3.2.7
+astroid==2.4.1
+Babel==2.8.0
+colorama==0.4.3
+Django==3.0.6
+django-phonenumber-field==4.0.0
+isort==4.3.21
+lazy-object-proxy==1.4.3
+mccabe==0.6.1
+phonenumbers==8.12.4
+pylint==2.5.2
+pytz==2020.1
+six==1.15.0
+sqlparse==0.3.1
+toml==0.10.1
+typed-ast==1.4.1
+wrapt==1.12.1

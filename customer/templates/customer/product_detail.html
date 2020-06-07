@@ -1,0 +1,117 @@
+{% extends 'customer/base.html' %}
+
+
+{% block content %}
+<!-- Sign in Modal -->
+<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST">
+        {% csrf_token %}
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fas fa-user prefix grey-text"></i>
+          <input type="text" id="orangeForm-name" name="username" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name">Username</label>
+        </div>
+
+        <div class="md-form mb-4">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <input type="password" id="orangeForm-pass" name="password" class="form-control validate">
+          <label data-error="wrong" data-success="right"  for="orangeForm-pass">Your password</label>
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <input class="btn btn-deep-orange" type="submit" value="Sign In" >
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+    <!--Main layout-->
+  <main class="mt-5 pt-4">
+        <div class="container dark-grey-text mt-5">
+    
+          <!--Grid row-->
+          <div class="row wow fadeIn">
+    
+            <!--Grid column-->
+            <div class="col-md-6 mb-4">
+    
+              <img src="{{item.image.url}}" class="img-fluid" alt="">
+    
+            </div>
+            <!--Grid column-->
+    
+            <!--Grid column-->
+            <div class="col-md-6 mb-4">
+    
+              <!--Content-->
+              <div class="p-4">
+    
+                <div class="mb-3">
+                  <a href="">
+                    <span class="badge purple mr-1">{{item.get_category_display}}</span>
+                  </a>
+                </div>
+    
+                <p class="lead">
+                  
+                  {% if item.discount_price %}
+                  <span class="mr-1">
+                      <del>PKR {{item.price}}</del>
+                  </span>
+                  <span>PKR {{item.discount_price}}</span>
+                  {% else %}
+                  <span>PKR {{item.price}}</span>
+                  {% endif %}
+                </p>
+    
+                <p class="lead font-weight-bold">Description</p>
+    
+                <p>{{item.description}}</p>
+    
+                <div class="d-flex justify-content-left">
+                  <!-- Default input -->
+                  {% if user.is_authenticated %}
+                  <button class="btn btn-primary btn-md my-0 p update-cart" data-product="{{item.id}}" data-action="add" >Add to cart
+                    <i class="fas fa-shopping-cart ml-1"></i>
+                  </button>
+                  {% else %}
+                  <div class="row">
+                    <div class="d-flex">
+                        <button class="btn btn-dark disabled btn-md my-0 p update-cart" data-product="{{item.id}}" data-action="add" >Add to cart
+                            <i class="fas fa-shopping-cart ml-1"></i>
+                          </button>
+                          <a class="btn btn-primary btn-md my-0 p" href="{% url 'register' %}" target="blank">Register</a>
+                          <a class="btn btn-primary btn-md my-0 p" data-toggle="modal" data-target="#modalRegisterForm">Sign In</a>
+                    </div>
+                  </div>
+                  {% endif %}
+    
+                </div>
+    
+              </div>
+              <!--Content-->
+    
+            </div>
+            <!--Grid column-->
+    
+          </div>
+          <!--Grid row-->
+    
+          <hr>
+    
+    
+        </div>
+      </main>
+      <!--Main layout-->
+{% endblock %}

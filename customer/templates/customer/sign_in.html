@@ -1,0 +1,52 @@
+{% extends 'customer/base.html' %}
+
+
+{% block content %}
+    <!--Main layout-->
+  <main class="mt-5 pt-4">
+        <div class="container dark-grey-text mt-5 ">
+            {% if messages %}
+            <ul class="messages d-flex justify-content-center mb-2 mt-2">
+                {% for message in messages %}
+                <div class="alert alert-{{message.tags}}" role="alert">
+                <h5>{{ message }}</h5>
+                </div>
+                {% endfor %}
+            </ul>
+            {% endif %}
+          <div class="card border-dark">
+            <h2 class="text-center p-3 card-title">Sign In</h2>
+            <hr>
+            <!-- Material form grid -->
+            <form method="POST" class="p-5">
+                {% csrf_token %}
+                    <!-- Grid row -->
+                    <div class="row">
+                        <!-- Grid column -->
+                        <div class="col">
+                            <!-- Material input -->
+                            <div class="md-form mt-0">
+                            <input type="text" class="form-control" name="username" placeholder="Username">
+                            </div>
+                        </div>
+                        <!-- Grid column -->
+                    
+                        <!-- Grid column -->
+                        <div class="col">
+                            <!-- Material input -->
+                            <div class="md-form mt-0">
+                            <input type="password" class="form-control" name="password" placeholder="Password">
+                            </div>
+                        </div>
+                        <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                        <input type="submit" value="Sign In" class="btn btn-primary" >
+                </form>
+                <!-- Material form grid -->
+          </div>
+    
+        </div>
+      </main>
+      <!--Main layout-->
+{% endblock %}
