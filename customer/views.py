@@ -33,6 +33,7 @@ def signOut(request):
     logout(request)
     return redirect("home_page")
 
+#  home page
 def home_page(request):
     products = Product.objects.all()
     paginator = Paginator(products,8)
@@ -56,6 +57,8 @@ def home_page(request):
         "page_range": page_range,
     }
     return render(request,'customer/home_page.html',context)
+
+#  different categories -------------------------------------------------------------------
 
 def shirts_page(request):
     products = Product.objects.filter(category="s")
@@ -129,6 +132,9 @@ def outwear_page(request):
     }
     return render(request,'customer/home_page.html',context)
 
+# -------------------------------------------------------------------------------------------------
+
+# shopping cart 
 @login_required(login_url="sign_in")
 def cart(request):
     customer = request.user.customer
@@ -141,19 +147,16 @@ def cart(request):
 
     return render(request,"customer/cart.html",{"items":items,"order":order})
 
+# checkout page
 @login_required(login_url="sign_in")
 def checkout(request):
     customer = request.user.customer
     try:
         order = Order.objects.get(customer=customer, complete=False)
         items = order.orderitem_set.all()
-    except ObjectDoesNotExist:
-        
+    except ObjectDoesNotExist:    
         return redirect("home_page")
-    total_items = 0
-    for i in items:
-        q = i.quantity
-        total_items += q
+
     form = CheckoutForm()
     try:
         order = Order.objects.get(customer=request.user.customer, complete=False)
@@ -193,6 +196,7 @@ def checkout(request):
     }
     return render(request,"customer/checkout.html",context)
 
+# product detail view
 def product_detail(request,id):
     product = Product.objects.get(id=id)
 
@@ -211,7 +215,7 @@ def product_detail(request,id):
     }
     return render(request,"customer/product_detail.html",context)
 
-
+#  updating cart item
 def update_item(request):
     data = json.loads(request.body)
     productId = data['productId']
@@ -234,6 +238,7 @@ def update_item(request):
     return JsonResponse("item was added", safe=False)
 
 
+# customer registration
 def register(request):
     form = CustomerForm()
     if request.method=="POST":
