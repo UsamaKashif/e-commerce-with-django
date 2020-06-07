@@ -18,3 +18,7 @@ Finally start the server
 <code>python manage.py runserver</code>
 <br>
 <br>
+
+<b>Register a Customer</b>
+<br>
+Now visit the admin page and create some products in the products section.
