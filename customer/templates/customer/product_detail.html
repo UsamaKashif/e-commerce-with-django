@@ -1,5 +1,5 @@
 {% extends 'customer/base.html' %}
-
+{% load static %}
 
 {% block content %}
 <!-- Sign in Modal -->
@@ -46,7 +46,7 @@
             <!--Grid column-->
             <div class="col-md-6 mb-4">
     
-              <img src="{{item.image.url}}" class="img-fluid" alt="">
+              <img src="{% static 'customer/img/default_img.png' %}" class="img-fluid" alt="">
     
             </div>
             <!--Grid column-->

@@ -1,5 +1,5 @@
 {% extends 'customer/base.html' %}
-
+{% load static %}
 
 {% block content %}
     <div class="mt-4">
@@ -80,7 +80,7 @@
     
                   <!--Card image-->
                   <div class="view overlay">
-                    <img src="{{i.image.url}}" class="card-img-top"
+                    <img src="{% static 'customer/img/default_img.png' %}" class="card-img-top"
                       alt="">
                     <a href="{% url 'product_detail' i.id %}">
                       <div class="mask rgba-white-slight"></div>
